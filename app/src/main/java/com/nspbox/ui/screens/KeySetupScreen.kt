@@ -24,7 +24,7 @@ fun KeySetupScreen() {
     var keysDirectory by remember { mutableStateOf("") }
     var statusMessage by remember { mutableStateOf("") }
     var statusIsError by remember { mutableStateOf(false) }
-    var inspectResult by remember { mutableStateOf<Map<String, Any>?>(null) }
+    var inspectResult by remember { mutableStateOf<Map<String, Any?>?>(null) }
     val scope = rememberCoroutineScope()
 
     Column(
