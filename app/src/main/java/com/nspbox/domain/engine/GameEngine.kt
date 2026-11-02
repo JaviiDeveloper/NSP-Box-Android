@@ -2,6 +2,7 @@ package com.nspbox.domain.engine
 
 import com.nspbox.domain.format.BlobWriter
 import com.nspbox.domain.format.ContainerFormat
+import com.nspbox.domain.format.VerifyFormat
 import com.nspbox.domain.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive

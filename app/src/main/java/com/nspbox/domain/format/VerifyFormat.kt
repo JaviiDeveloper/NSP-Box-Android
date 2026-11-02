@@ -132,12 +132,12 @@ object VerifyFormat {
         val sections = mutableListOf<Pair<String, Region>>()
 
         for (i in 0 until 4) {
-            val start = buf.readInt(0x240 + 16 * i).toLong() and 0xFFFFFFFFL
-            val end = buf.readInt(0x240 + 16 * i + 4).toLong() and 0xFFFFFFFFL
+            val start = buf.readInt(0x240L + 16L * i).toLong() and 0xFFFFFFFFL
+            val end = buf.readInt(0x240L + 16L * i + 4L).toLong() and 0xFFFFFFFFL
             if (start == 0L && end == 0L) continue
 
-            val header = buf.slice(0x400 + 512L * i, 512)
-            val expectedHash = buf.readBytes(0x280 + 32L * i, 32)
+            val header = buf.slice(0x400L + 512L * i, 512)
+            val expectedHash = buf.readBytes(0x280L + 32L * i, 32)
             require(header.digest().contentEquals(expectedHash)) { "Section header hash mismatch" }
             require(header[4] == 1.toByte()) { "Expected plaintext section" }
 
@@ -175,9 +175,9 @@ object VerifyFormat {
 
                     var expected = header.readBytes(0xC8, 32)
                     for (j in 0 until count) {
-                        val off = header.readLong(0x18 + j * 24)
-                        val sz = header.readLong(0x18 + j * 24 + 8)
-                        val order = header.readInt(0x18 + j * 24 + 16)
+                        val off = header.readLong(0x18L + j * 24L)
+                        val sz = header.readLong(0x18L + j * 24L + 8L)
+                        val order = header.readInt(0x18L + j * 24L + 16L)
                         val bsize = 1L shl order
 
                         val levelData = body.slice(off, sz)
@@ -191,8 +191,8 @@ object VerifyFormat {
                         expected = levelData.toByteArray()
                     }
                     sections.add("romfs" to body.slice(
-                        header.readLong(0x18 + (count - 1) * 24),
-                        header.readLong(0x18 + (count - 1) * 24 + 8)
+                        header.readLong(0x18L + (count - 1) * 24L),
+                        header.readLong(0x18L + (count - 1) * 24L + 8L)
                     ))
                 }
                 else -> throw IllegalArgumentException("Unsupported hash type: $hashType")
@@ -202,9 +202,9 @@ object VerifyFormat {
     }
 
     fun romfsFiles(buf: Region): Map<String, Region> {
-        val dtOff = buf.readLong(3 * 8)
-        val ftOff = buf.readLong(7 * 8)
-        val dataOff = buf.readLong(9 * 8)
+        val dtOff = buf.readLong(3L * 8L)
+        val ftOff = buf.readLong(7L * 8L)
+        val dataOff = buf.readLong(9L * 8L)
         val result = mutableMapOf<String, Region>()
 
         fun walk(off: Int, parent: String) {

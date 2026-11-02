@@ -25,8 +25,9 @@ fun BuildButton(
                 targetValue = progress.percent / 100f,
                 label = "progress"
             )
+            @Suppress("DEPRECATION")
             LinearProgressIndicator(
-                progress = { animatedProgress },
+                progress = animatedProgress,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(6.dp)
